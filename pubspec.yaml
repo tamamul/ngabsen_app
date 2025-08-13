@@ -1,0 +1,37 @@
+name: ngabsen_app
+description: A simple WebView wrapper for ngabsen.smkmaarif9kebumen.sch.id
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  webview_flutter: ^4.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_native_splash: ^2.4.1
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+
+flutter_native_splash:
+  color: "#0066CC"
+  image: assets/logo.png
+  android: true
+  ios: true
+
+flutter_icons:
+  android: true
+  ios: false
+  image_path: "assets/app_icon.png"
+  adaptive_icon_background: "#0066CC"
+  adaptive_icon_foreground: "assets/app_icon.png"
