@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,11 +35,21 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+    _initApp();
+  }
+
+  Future<void> _initApp() async {
+    // Minta izin kamera & lokasi
+    await Permission.camera.request();
+    await Permission.locationWhenInUse.request();
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (mounted) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const WebViewPage()),
       );
-    });
+    }
   }
 
   @override
@@ -86,6 +97,10 @@ class _WebViewPageState extends State<WebViewPage> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
+          onPermissionRequest: (request) {
+            // Izinkan semua permission di WebView (kamera & lokasi)
+            request.grant();
+          },
           onPageStarted: (_) => setState(() => _isLoading = true),
           onPageFinished: (_) => setState(() => _isLoading = false),
         ),
