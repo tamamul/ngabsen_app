@@ -11,12 +11,34 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.32.8'
-      - run: flutter pub get
-      - run: flutter build apk --release
+
+      # 🔧 Lengkapi struktur proyek (android/ios/web/test) di runner
+      - name: Ensure full Flutter project structure
+        run: |
+          flutter --version
+          flutter create .  # aman, tidak menimpa lib/pubspec.yaml kamu
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # (Opsional) generate ikon & splash kalau mau
+      - name: Generate launcher icons
+        run: dart run flutter_launcher_icons
+        continue-on-error: true
+
+      - name: Generate native splash
+        run: dart run flutter_native_splash:create
+        continue-on-error: true
+
+      - name: Build APK (release)
+        run: flutter build apk --release
+
       - uses: actions/upload-artifact@v4
         with:
-          name: release-apk
+          name: app-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
