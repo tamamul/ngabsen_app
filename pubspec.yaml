@@ -10,6 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   webview_flutter: ^4.7.0
+  permission_handler: ^11.3.0
+  animated_text_kit: ^4.2.2
+  lottie: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -22,6 +25,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
+    - assets/logo_m9.png
+    - assets/bg_splash.jpg
 
 flutter_native_splash:
   color: "#0066CC"
@@ -29,7 +34,7 @@ flutter_native_splash:
   android: true
   ios: true
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: false
   image_path: "assets/app_icon.png"
